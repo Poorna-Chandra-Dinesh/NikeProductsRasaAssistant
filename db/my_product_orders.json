@@ -1,0 +1,44 @@
+[
+  {
+    "customer_name": "Panda",
+    "order_number": "2000" ,
+    "picture": "https://i.imgur.com/UtuCB5G.jpg",
+    "picture_name": "loose-thread-refund-1"
+  },
+  {
+    "customer_name": "Jake",
+    "order_number": "2001" ,
+    "picture": "https://i.imgur.com/bN5RFuz.jpg",
+    "picture_name": "nike-cut-refund-2"
+  },
+  {
+    "customer_name": "Poorna",
+    "order_number": "2002" ,
+    "picture": "https://i.imgur.com/jl8wwGc.jpg",
+    "picture_name": "severly-damaged-nike-box"
+  },
+  {
+    "customer_name": "Dinesh",
+    "order_number": "2003" ,
+    "picture": "https://i.imgur.com/5pNkPC7.jpg",
+    "picture_name": "not-same-pair-nike"
+  },
+  {
+    "customer_name": "Ben10",
+    "order_number": "2004" ,
+    "picture": "https://i.imgur.com/0Q2Tvw9.jpg",
+    "picture_name": "nike-cut-refund-1"
+  },
+  {
+    "customer_name": "Mike",
+    "order_number": "3222" ,
+    "picture": "https://i.imgur.com/JR8wKAl.jpg",
+    "picture_name": "hoodie-normal"
+  },
+  {
+    "customer_name": "Paul",
+    "order_number": "2025" ,
+    "picture": "https://i.imgur.com/MLTWhkK.jpg",
+    "picture_name": "Air Jordan 4- defect"
+  }
+]

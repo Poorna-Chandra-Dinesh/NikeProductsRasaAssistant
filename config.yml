@@ -1,0 +1,46 @@
+recipe: default.v1
+language: en
+pipeline:
+- name: NLUCommandAdapter
+- name: WhitespaceTokenizer
+- name: RegexFeaturizer
+- name: LexicalSyntacticFeaturizer
+- name: CountVectorsFeaturizer
+- name: DIETClassifier
+  epochs: 100
+- name: EntitySynonymMapper
+- name: ResponseSelector
+  epochs: 100
+- name: SingleStepLLMCommandGenerator
+  llm:
+    model_name: gpt-3.5-turbo
+
+#    Rasa uses OpenAi 0.28.1 chat completion endpoint for model training but NOT for the action server
+#    gpt-4o-mini does NOT work with openai 0.28.1 chat completion endpoint
+
+#    gpt-4 is REALLY expensive. Do NOT use.
+#    A chat with Nike Customer Service  Rasa app for 2 minutes (roughly 20 API calls) is $1.5    
+#    model_name: gpt-4
+
+    request_timeout: 7
+    temperature: 0.0
+    top_p: 0.0
+
+
+policies:
+- name: RulePolicy
+- name: TEDPolicy
+  constrain_similarities: true
+
+
+- name: FlowPolicy
+- name: EnterpriseSearchPolicy
+- name: IntentlessPolicy
+
+assistant_id: 20240418-073244-narrow-archive
+
+
+session_config:
+  session_expiration_time: 2  # session expires after 1 minutes of inactivity
+  carry_over_slots_to_new_session: false  # optional: determines if slot values should be carried over to new session
+

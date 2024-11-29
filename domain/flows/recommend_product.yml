@@ -1,0 +1,142 @@
+##########################################################################################
+##########################################################################################
+#
+#   Developed by Atef Bader,PhD
+#   Last Edit: 11/13/2024
+#
+##########################################################################################
+##########################################################################################
+
+version: "3.1"
+
+#intents:
+#  - recommend_nike_product
+
+
+slots:
+  customer_preferences_for_product_purchase:
+    type: text
+    mappings:
+      - type: from_llm
+
+  product_name:
+    type: text
+    mappings:
+      - type: custom
+        action: purchase_product
+
+  product_number:
+    type: float
+    mappings:
+      - type: custom
+        action: purchase_product
+
+  photo:
+    type: text
+    mappings:
+      - type: custom
+        action: purchase_product
+
+  recommend_check_product_purchase_confirmation:
+    type: text
+    mappings:
+      - type: from_llm
+
+  customer_shipping_address:
+    type: text
+    mappings:
+      - type: from_llm
+
+  customer_payment_info:
+    type: text
+    mappings:
+      - type: from_llm
+
+
+actions:
+  - recommend_product
+  - purchase_product
+  - reset_slots
+  - blue_hoodie
+  - light_tshirt
+  - black_shorts
+  - short_sleeve_hoodie
+  - greet_flow
+responses:
+  
+  utter_blue_hoodie:
+    - text: "NIKE Sportswear Men's Pullover Club Hoodie. \n
+            Price - 54$ \n
+            Delivery in two days."
+      image: "https://i.imgur.com/qxXuens.jpg"
+
+  utter_light_tshirt:
+    - text: "Nike Men's Park VII Shorts Sleeve Jersey. \n
+            Price - 24.99$ \n
+            Delivery can be expected in 3 days"
+      image: "https://i.imgur.com/05PALL4.jpg"
+
+  utter_black_shorts:
+    - text: " Nike Youth Park III Shorts. \n
+            Price - 23.5$.
+            Delivery in 24hrs"
+      image: "https://i.imgur.com/gzDzBWq.jpg"
+
+  utter_short_sleeve_hoodie:
+    - text: " Men's Nike MLB Short-Sleeve Pullover Hoodie. \n
+            Price - 75$ \n
+            Delivery can be expected in 4 business day. "
+      image: "https://i.imgur.com/zcJcmJj.png "
+  
+  utter_lets_buy_it_for_you:
+    - text: "The product has been shipped to your address. \n
+            Thank you for shopping with us"
+      image: "https://i.imgur.com/NxKpJ5u.jpg"
+
+
+  utter_recommend_product_purchase_photo:
+    - text: I found the following shoes that I would recommend based on your preferences and needs
+      image: "{photo}"
+
+  utter_recommend_product_purchase_name_and_number:
+    - text: The product name is {product_name} and its price is {product_number} 
+
+
+  utter_ask_recommend_check_product_purchase_confirmation:
+    - text:  Would you like to purchase this product?
+      buttons:
+        - payload: "Yes, submit order"
+          title: "Yes, submit order"
+        - payload: "No, cancel order"
+          title: "No, cancel order"
+
+  utter_ask_customer_preferences_for_product_purchase:
+    - text: What type of shoes you are looking for? 
+
+  utter_ask_customer_shipping_address:
+    - text: What is your shipping address? 
+
+  utter_ask_customer_payment_info:
+    - text: Please enter your Credit Card number.
+
+
+
+  utter_recommend_product_purchase_processed:
+    - text: "All set, your purchase is processed. \n 
+            Your order number is: {purchase_order_number} \n
+            Expected delivery within 5 business days."
+
+
+  utter_recommend_check_product_purchase_cancelled:
+    - text: Okay, I am cancelling this purchase order.
+
+
+
+  utter_recommend_product_purchase_escalate_to_agent:
+    - text: We are sorry, we couldn't place the order for you. Please call 1-800-123-4567.
+
+
+  utter_using_openai_embedding:
+    - text: " Ok, we are using OpenAI/text-embedding-3-small model to find best product recommendation that  meets your preferences."
+      image: "https://i.imgur.com/OPCK1qm.png"
+

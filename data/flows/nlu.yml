@@ -1,0 +1,68 @@
+##########################################################################################
+##########################################################################################
+#
+#   Developed by Atef Bader,PhD
+#   Last Edit: 11/13/2024
+#
+##########################################################################################
+##########################################################################################
+
+
+version: "3.1"
+
+nlu:
+- intent: out_of_scope
+  examples: |
+    - Buy Laptop
+    - Purchase Laptop
+    - Buy Vehcile
+    - Chair
+    - Window
+    - I want to order food
+    - What is 2 + 2?
+    - Who's the US President?
+
+- intent: asked_for_help
+  examples: |
+    - help
+    - I need help
+    - Could you please help?
+    - How can you help me with this?
+
+- intent: greet_flow
+  examples: |
+    - Hi
+    - Hello
+    - Hey
+    - Good morning
+    - Good afternoon
+    - Hi there
+    - Hello there
+    - Hey, how are you?
+    - Greetings
+    - What's up?
+    - Yo
+
+- intent: recommend_nike_hoodies
+  examples: |
+    - I want a blue hoodie for trail walking.
+    - I want to buy Nike hoodies
+
+- intent: recommend_nike_Tshirt_product
+  examples: |
+    - I want a light T-shirt for the GYM.
+    - I want white T-Shirt for the gym
+
+- intent: recommend_shorts_nike_product
+  examples: |
+    - I want black Shorts to exercise.
+    - I want a walking red Shorts for the trail
+
+- intent: recommend_short_sleeve_nike_product
+  examples: |
+    - I want a short sleeve hoodie.
+
+- intent: status_of_the_order
+  examples: |
+    - I want to check the status of my order number 24620
+    - - I want to check the status of my order number 27620

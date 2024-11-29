@@ -1,0 +1,20 @@
+##########################################################################################
+##########################################################################################
+#
+#   Developed by Atef Bader,PhD
+#   Last Edit: 11/13/2024
+#
+##########################################################################################
+##########################################################################################
+
+
+version: "3.1"
+
+#intents:
+#  - ask_help
+
+
+responses:
+  
+  utter_help:
+    - text: "I can help you with Nike products and services. \nYou can ask me things like: \n- What's the status on my order return? \n- I want to purchase Nike Shoes \n- Check on my order status? \n- I want to buy shoes for trail walking \n- I want to Low Top shoes for gym exercise"

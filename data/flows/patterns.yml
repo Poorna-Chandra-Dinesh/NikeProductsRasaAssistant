@@ -1,0 +1,35 @@
+##########################################################################################
+##########################################################################################
+#
+#   Developed by Atef Bader,PhD
+#   Last Edit: 11/13/2024
+#
+##########################################################################################
+##########################################################################################
+
+flows:
+
+  pattern_skip_question:
+      description: Conversation repair flow for managing user intents to skip questions (steps)
+      name: pattern skip question
+      steps:
+        - noop: true
+          next: END
+#        - action: utter_skip_question_answer
+
+  pattern_completed:
+    description: Completion of a user's flow
+    steps:
+      - noop: true
+        next: END   
+#     - action: utter_can_do_something_else
+#       next: END   
+
+
+  pattern_continue_interrupted:
+    description: Conversation repair flow for managing when users switch between different flows
+    name: pattern continue interrupted
+    steps:
+      - noop: true
+        next: END   
+#      - action: utter_flow_continue_interrupted

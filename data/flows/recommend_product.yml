@@ -1,0 +1,241 @@
+##########################################################################################
+##########################################################################################
+#
+#   Developed by Atef Bader,PhD
+#   Last Edit: 11/13/2024
+#
+##########################################################################################
+##########################################################################################
+
+flows:
+  
+  blue_hoodie:
+    name: blue_hoodie
+    description: say hoodie to bro
+
+    steps:
+      - set_slots:
+          - customer_name: null
+          - customer_preferences_for_product_purchase: null
+          - customer_shipping_address: null
+          - customer_payment_info: null
+          - return_value: null
+          - purchase_order_number: null
+         
+
+      - action: utter_blue_hoodie
+      
+      - collect: recommend_check_product_purchase_confirmation
+        next:
+          - if:  ( slots.recommend_check_product_purchase_confirmation = "No, cancel order")
+            then:
+              - action: utter_recommend_check_product_purchase_cancelled
+                next: END
+          - else: customer_address_for_purchased_product
+      
+
+      - id: customer_address_for_purchased_product
+        collect: customer_shipping_address
+        description: the customer shipping address
+        next: customer_payment_for_purchased_product
+        ask_before_filling: true
+
+      - id: customer_payment_for_purchased_product
+        collect: customer_payment_info
+        description: the customer payment info
+        ask_before_filling: true
+
+      - action: utter_lets_buy_it_for_you
+  
+  light_tshirt:
+    name: light_tshirt
+    description: say tshirt to bro
+
+    steps:
+      - set_slots:
+          - customer_name: null
+          - customer_preferences_for_product_purchase: null
+          - customer_shipping_address: null
+          - customer_payment_info: null
+          - return_value: null
+          - purchase_order_number: null
+         
+
+      - action: utter_light_tshirt
+      
+      - collect: recommend_check_product_purchase_confirmation
+        next:
+          - if:  ( slots.recommend_check_product_purchase_confirmation = "No, cancel order")
+            then:
+              - action: utter_recommend_check_product_purchase_cancelled
+                next: END
+          - else: customer_address_for_purchased_product
+      
+
+      - id: customer_address_for_purchased_product
+        collect: customer_shipping_address
+        description: the customer shipping address
+        next: customer_payment_for_purchased_product
+        ask_before_filling: true
+
+      - id: customer_payment_for_purchased_product
+        collect: customer_payment_info
+        description: the customer payment info
+        ask_before_filling: true
+
+      - action: utter_lets_buy_it_for_you
+
+  black_shorts:
+    name: black_shorts
+    description: say black shorts to bro
+
+    steps:
+      - set_slots:
+          - customer_name: null
+          - customer_preferences_for_product_purchase: null
+          - customer_shipping_address: null
+          - customer_payment_info: null
+          - return_value: null
+          - purchase_order_number: null
+         
+
+      - action: utter_black_shorts
+      
+      - collect: recommend_check_product_purchase_confirmation
+        next:
+          - if:  ( slots.recommend_check_product_purchase_confirmation = "No, cancel order")
+            then:
+              - action: utter_recommend_check_product_purchase_cancelled
+                next: END
+          - else: customer_address_for_purchased_product
+      
+
+      - id: customer_address_for_purchased_product
+        collect: customer_shipping_address
+        description: the customer shipping address
+        next: customer_payment_for_purchased_product
+        ask_before_filling: true
+
+      - id: customer_payment_for_purchased_product
+        collect: customer_payment_info
+        description: the customer payment info
+        ask_before_filling: true
+
+      - action: utter_lets_buy_it_for_you
+
+  short_sleeve_hoodie:
+    name: short_sleeve_hoodie
+    description: say short_sleeve_hoodie to bro
+
+    steps:
+      - set_slots:
+          - customer_name: null
+          - customer_preferences_for_product_purchase: null
+          - customer_shipping_address: null
+          - customer_payment_info: null
+          - return_value: null
+          - purchase_order_number: null
+         
+
+      - action: utter_short_sleeve_hoodie
+      
+      - collect: recommend_check_product_purchase_confirmation
+        next:
+          - if:  ( slots.recommend_check_product_purchase_confirmation = "No, cancel order")
+            then:
+              - action: utter_recommend_check_product_purchase_cancelled
+                next: END
+          - else: customer_address_for_purchased_product
+      
+
+      - id: customer_address_for_purchased_product
+        collect: customer_shipping_address
+        description: the customer shipping address
+        next: customer_payment_for_purchased_product
+        ask_before_filling: true
+
+      - id: customer_payment_for_purchased_product
+        collect: customer_payment_info
+        description: the customer payment info
+        ask_before_filling: true
+
+      - action: utter_lets_buy_it_for_you
+
+      
+  greet_flow:
+    name: "greet_flow"
+    description: customer to say hi.
+    steps:
+      - action: utter_greet
+
+  recommend_product:
+    name: recommend_product
+    description: customer wants to purchase nike shoes.
+    
+    steps:
+      - set_slots:
+          - customer_name: null
+          - customer_preferences_for_product_purchase: null
+          - customer_shipping_address: null
+          - customer_payment_info: null
+          - return_value: null
+          - purchase_order_number: null
+          - recommend_check_product_purchase_confirmation: null
+
+      - action: last_user_message  
+        next:
+          - if:  slots.request_type matches "(?i).*Nike shoes.*"
+            then: 
+              - action: utter_I_can_help 
+              - collect: customer_name
+                description: the name of the customer
+              - collect: customer_preferences_for_product_purchase
+                ask_before_filling: true
+                next: using_openai_embedding
+          - else:
+              - action: utter_help
+                next: END
+         
+      - id: using_openai_embedding
+        action: utter_using_openai_embedding
+
+      - id: ask_customer_to_standbuy
+        action: utter_please_standby
+
+      - action: recommend_product
+
+      - action: utter_recommend_product_purchase_photo
+      - action: utter_recommend_product_purchase_name_and_number
+
+      - collect: recommend_check_product_purchase_confirmation
+#        ask_before_filling: true
+        next:
+#          - if: not slots.recommend_check_product_purchase_confirmation
+          - if:  ( slots.recommend_check_product_purchase_confirmation = "No, cancel order")
+            then:
+              - action: utter_recommend_check_product_purchase_cancelled
+                next: END
+          - else: customer_address_for_purchased_product
+
+
+      - id: customer_address_for_purchased_product
+        collect: customer_shipping_address
+        description: the customer shipping address
+        next: customer_payment_for_purchased_product
+        ask_before_filling: true
+
+      - id: customer_payment_for_purchased_product
+        collect: customer_payment_info
+        description: the customer payment info
+        ask_before_filling: true
+
+      - action: purchase_product
+        next:
+          - if: "slots.return_value = 'order_processed'"
+            then:
+              - action: utter_recommend_product_purchase_processed
+                next: END
+          - else:
+              - action: utter_recommend_product_purchase_escalate_to_agent
+                next: END
+

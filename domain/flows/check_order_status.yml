@@ -1,0 +1,95 @@
+##########################################################################################
+##########################################################################################
+#
+#   Developed by Atef Bader,PhD
+#   Last Edit: 11/13/2024
+#
+##########################################################################################
+##########################################################################################
+
+
+version: "3.1"
+
+#intents:
+#  - check_order_status
+
+
+slots:
+
+  order_number:
+    type: text
+    mappings:
+      - type: from_llm
+
+  photo:
+    type: text
+    mappings:
+      - type: custom
+        action: check_order_status
+
+  check_order_confirmation:
+    type: text
+    mappings:
+    - type: from_llm
+
+
+  order_number_validation:
+    type: text
+    mappings:
+      - type: from_llm
+
+
+  retry_order_number:
+    type: text
+    mappings:
+      - type: from_llm
+
+actions:
+  - check_order_status
+  - check_order_photo
+
+
+
+responses:
+
+  utter_order_photo_status:
+    - text: We received  the following picture for your {order_number} order 
+      image: "{photo}"
+
+  utter_ask_check_order_confirmation:
+    - text: Please confirm the picture above we received from you for order {order_number} ?
+      buttons:
+        - payload: "yes"
+          title: "Yes"
+        - payload: "no, cancel"
+          title: "No, cancel"
+
+
+  utter_ask_order_number:
+    - text: What's your order number?
+      image: "https://i.imgur.com/RJdtKf8.png"
+
+
+  utter_replace_order:
+    - text: We are happy to replace your order at no charge.
+
+  utter_refund_order:
+    - text: We are happy to refund you the charges.
+
+  utter_escalate_order_to_agent:
+    - text: "Sorry I can't help you with that. \n There is no visible defect in the product that you received or a major damage in the shipping box. \n Please call 1-800-234-5678 for further assistance"
+
+  utter_check_order_cancelled:
+    - text: Okay, I am cancelling this order inquiry.
+
+  utter_using_openai_gpt:
+    - text: "We are using OpenAI/gpt to evaluate the picture you emailed us."
+      image: "https://i.imgur.com/OPCK1qm.png"
+
+  utter_invalid_order_number:
+    - text: "You have entered an invalid order number. \n Please verify the order number you entered."
+      image: "https://i.imgur.com/m1MX3Dr.png"
+
+  utter_verify_order_and_try_later:
+    - text: "The order number you entered is invalid. \n Please verify your order number, and try again later. \n Have a nice day!"
+

@@ -1,0 +1,100 @@
+##########################################################################################
+##########################################################################################
+#
+#   Developed by Atef Bader,PhD
+#   Last Edit: 11/13/2024
+#
+##########################################################################################
+##########################################################################################
+
+
+flows:
+  check_order_status:
+    name: check order status
+    description: customer wants to know order status
+    steps:
+      - set_slots:
+          - customer_name: null
+          - order_number: null
+          - photo: null
+          - order_number_validation: null
+          - check_order_confirmation: null
+          - retry_order_number: null
+
+          
+      - action: last_user_message  
+        next:
+          - if:  slots.request_type matches "(?i).*order status.*"
+            then:
+              - action: utter_I_can_help 
+              - collect: customer_name
+                description: the name of the customer
+                next: proceed_to_collect_customer_data
+          - else:
+              - action: utter_help
+                next: END
+
+      - id: proceed_to_collect_customer_data   
+        set_slots:
+          - retry_order_number: 'yes'
+
+      - id: proceed_to_collect_order_number   
+        collect: order_number
+        description: the order number for the customer 
+        ask_before_filling: true
+
+      - set_slots:
+          - order_number_validation: null
+
+      - action: check_order_photo
+        next:
+          - if: slots.order_number_validation is 'invalid'
+            then:
+                - noop: true
+                  next:
+                    - if: slots.retry_order_number is 'yes'
+                      then:
+                        - set_slots:
+                            - retry_order_number: 'no'
+                        - action: utter_invalid_order_number
+                          next: proceed_to_collect_order_number
+                    - else: 
+                        - action: utter_verify_order_and_try_later
+                          next: END
+          - else:  confirm_photo_received
+
+
+      - id: confirm_photo_received
+        action: utter_order_photo_status
+
+      - collect: check_order_confirmation
+#        ask_before_filling: true
+        next:
+          - if: (slots.check_order_confirmation is 'no, cancel')
+            then:
+              - action: utter_check_order_cancelled
+                next: END
+          - else:  using_openai_gpt
+
+
+
+      - id: using_openai_gpt
+        action: utter_using_openai_gpt
+
+      - id: please_standby
+        action: utter_please_standby
+
+      - id: check_order_status
+        action: check_order_status
+        next:
+          - if: "slots.return_value = 'replace_order'"
+            then:
+              - action: utter_replace_order
+                next: END
+          - if: "slots.return_value = 'refund_order'"
+            then:
+              - action: utter_refund_order
+                next: END        
+          - else:
+              - action: utter_escalate_order_to_agent
+                next: END
